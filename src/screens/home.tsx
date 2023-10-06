@@ -16,9 +16,9 @@ import {
 
 import Image from "next/image"
 import { PlusCircleIcon } from "lucide-react"
-import { listenNowAlbums, madeForYouAlbums } from "@/data/albums"
-import { AlbumArtwork } from "@/components/album-artwork"
+import { madeForYouAlbums } from "@/data/albums"
 import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder"
+import { DashboardCard } from "@/components/dashboard-cards"
 
 export const metadata: Metadata = {
   title: "Music App",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export function MusicPage() {
   return (
-    <>
+    <main>
       <div className="md:hidden">
         <Image
           src="/examples/music-light.png"
@@ -45,16 +45,17 @@ export function MusicPage() {
         />
       </div>
       <div className="hidden md:block">
-        <Menu />
+        {/* <Menu /> */}
         <div className="border-t">
-          <div className="bg-background">
+          <div className="bg-background ">
             <div className="grid lg:grid-cols-5">
-              <Sidebar playlists={playlists} className="hidden lg:block" />
+              <Sidebar playlists={playlists} className="hidden lg:block min-h-[calc(100vh)] max-h-[calc(100vh_-_41px)]" />
+              {/* <Sidebar playlists={playlists} className="hidden lg:block min-h-[calc(100vh_-_41px)] max-h-[calc(100vh_-_41px)]" /> */}
               <div className="col-span-3 lg:col-span-4 lg:border-l">
                 <div className="h-full px-4 py-6 lg:px-8">
                   <Tabs defaultValue="music" className="h-full space-y-6">
                     <div className="space-between flex items-center">
-                      <TabsList>
+                      {/* <TabsList>
                         <TabsTrigger value="music" className="relative">
                           Music
                         </TabsTrigger>
@@ -62,11 +63,11 @@ export function MusicPage() {
                         <TabsTrigger value="live" disabled>
                           Live
                         </TabsTrigger>
-                      </TabsList>
+                      </TabsList> */}
                       <div className="ml-auto mr-4">
                         <Button>
                           <PlusCircleIcon className="mr-2 h-4 w-4" />
-                          Add music
+                          Adicionar cobranca
                         </Button>
                       </div>
                     </div>
@@ -74,37 +75,9 @@ export function MusicPage() {
                       value="music"
                       className="border-none p-0 outline-none"
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="space-y-1">
-                          <h2 className="text-2xl font-semibold tracking-tight">
-                            Listen Now
-                          </h2>
-                          <p className="text-sm text-muted-foreground">
-                            Top picks for you. Updated daily.
-                          </p>
-                        </div>
-                      </div>
-                      <Separator className="my-4" />
-                      <div className="relative">
-                        <ScrollArea>
-                          <div className="flex space-x-4 pb-4">
-                            {listenNowAlbums.map((album) => (
-                              <AlbumArtwork
-                                key={album.name}
-                                album={album}
-                                className="w-[250px]"
-                                aspectRatio="portrait"
-                                width={250}
-                                height={330}
-                              />
-                            ))}
-                          </div>
-                          <ScrollBar orientation="horizontal" />
-                        </ScrollArea>
-                      </div>
                       <div className="mt-6 space-y-1">
                         <h2 className="text-2xl font-semibold tracking-tight">
-                          Made for You
+                          Suas cobrancas agendadas
                         </h2>
                         <p className="text-sm text-muted-foreground">
                           Your personal playlists. Updated daily.
@@ -112,21 +85,21 @@ export function MusicPage() {
                       </div>
                       <Separator className="my-4" />
                       <div className="relative">
-                        <ScrollArea>
-                          <div className="flex space-x-4 pb-4">
-                            {madeForYouAlbums.map((album) => (
-                              <AlbumArtwork
-                                key={album.name}
-                                album={album}
-                                className="w-[150px]"
+                        {/* <ScrollArea> */}
+                          <div className="flex flex-wrap gap-4 pb-4">
+                            {madeForYouAlbums.map((service) => (
+                              <DashboardCard
+                                key={service.name}
+                                service={service}
+                                className="w-[300px]"
                                 aspectRatio="square"
-                                width={150}
-                                height={150}
+                                width={80}
+                                height={80}
                               />
                             ))}
                           </div>
-                          <ScrollBar orientation="horizontal" />
-                        </ScrollArea>
+                          {/* <ScrollBar orientation="horizontal" /> */}
+                        {/* </ScrollArea> */}
                       </div>
                     </TabsContent>
                     <TabsContent
@@ -153,6 +126,6 @@ export function MusicPage() {
           </div>
         </div>
       </div>
-    </>
+    </main>
   )
 }
