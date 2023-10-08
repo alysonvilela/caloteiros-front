@@ -11,7 +11,7 @@ interface FailRequest {
 }
 
 const fetchWhatsAppQr= async () => {
-  const res = await axios.get<SuccessRequest>('http://localhost:4000/dev/admin/qr')
+  const res = await axios.get<SuccessRequest>(`${process.env.NEXT_PUBLIC_SERVICE_URL}/dev/admin/qr`)
   return res.data
 }
 
