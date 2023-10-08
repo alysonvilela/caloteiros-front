@@ -19,6 +19,7 @@ import { PlusCircleIcon } from "lucide-react"
 import { madeForYouAlbums } from "@/data/albums"
 import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder"
 import { DashboardCard } from "@/components/dashboard-cards"
+import { useUserCharges } from "@/services/queries/use-user-charges"
 
 export const metadata: Metadata = {
   title: "Music App",
@@ -26,6 +27,10 @@ export const metadata: Metadata = {
 }
 
 export function MusicPage() {
+  const {data} = useUserCharges('01HC3ETBH0ZD5R3WDDYJY0BTQC')
+
+  console.log({data})
+
   return (
     <main>
       <div className="md:hidden">
@@ -67,7 +72,7 @@ export function MusicPage() {
                       <div className="ml-auto mr-4">
                         <Button>
                           <PlusCircleIcon className="mr-2 h-4 w-4" />
-                          Adicionar cobranca
+                          Adicionar cobrança
                         </Button>
                       </div>
                     </div>
@@ -77,7 +82,7 @@ export function MusicPage() {
                     >
                       <div className="mt-6 space-y-1">
                         <h2 className="text-2xl font-semibold tracking-tight">
-                          Suas cobrancas agendadas
+                          Suas cobranças agendadas
                         </h2>
                         <p className="text-sm text-muted-foreground">
                           Your personal playlists. Updated daily.
@@ -85,12 +90,17 @@ export function MusicPage() {
                       </div>
                       <Separator className="my-4" />
                       <div className="relative">
-                        {/* <ScrollArea> */}
                           <div className="flex flex-wrap gap-4 pb-4">
-                            {madeForYouAlbums.map((service) => (
+                            {data?.map((charge) => (
                               <DashboardCard
-                                key={service.name}
-                                service={service}
+                                key={charge.service.name}
+                                service={{
+                                  name: charge.service.name,
+                                  is_distribuitor: false,
+                                  team: charge.team.members.map((i) => i.phone),
+                                  value: charge.service.value,
+                                  cover: 'https://images.unsplash.com/photo-1696351145352-043b9cc77a1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1895&q=80'
+                                }}
                                 className="w-[300px]"
                                 aspectRatio="square"
                                 width={80}
@@ -98,8 +108,6 @@ export function MusicPage() {
                               />
                             ))}
                           </div>
-                          {/* <ScrollBar orientation="horizontal" /> */}
-                        {/* </ScrollArea> */}
                       </div>
                     </TabsContent>
                     <TabsContent
