@@ -23,9 +23,7 @@ export const metadata: Metadata = {
 export function Page() {
   const { userId } = useAuth();
   const { data } = useUserCharges(userId);
-
-  console.log({ data });
-
+  
   return (
     <main>
       <div className="md:hidden">
