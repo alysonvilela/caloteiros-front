@@ -20,13 +20,14 @@ const fetchUserCharges = async (userId: string) => {
   return res.data;
 };
 
-const useUserCharges = (userId: string) => {
+const useUserCharges = (userId?: string | null) => {
   return useQuery<SuccessRequest, AxiosError<FailRequest>>(
     ["user-charges", userId],
-    () => fetchUserCharges(userId),
+    () => fetchUserCharges(userId ?? ""),
     {
       retry: 3,
       retryDelay: 30000,
+      enabled: !!userId
     }
   );
 };

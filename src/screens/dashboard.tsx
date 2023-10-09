@@ -1,35 +1,30 @@
-import { Menu } from "@/components/menu"
-import { Sidebar } from "@/components/sidebar"
-import { playlists } from "@/data/playlists"
-import { Metadata } from "next"
+import { Menu } from "@/components/menu";
+import { Sidebar } from "@/components/sidebar";
+import { playlists } from "@/data/playlists";
+import { Metadata } from "next";
 
-import { Button } from "@/components/ui/button"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-
-import Image from "next/image"
-import { PlusCircleIcon } from "lucide-react"
-import { madeForYouAlbums } from "@/data/albums"
-import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder"
-import { DashboardCard } from "@/components/dashboard-cards"
-import { useUserCharges } from "@/services/queries/use-user-charges"
+import Image from "next/image";
+import { PlusCircleIcon } from "lucide-react";
+import { PodcastEmptyPlaceholder } from "@/components/podcast-empty-placeholder";
+import { DashboardCard } from "@/components/dashboard-cards";
+import { useUserCharges } from "@/services/queries/use-user-charges";
+import { useAuth } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Music App",
   description: "Example music app using the components.",
-}
+};
 
-export function MusicPage() {
-  const {data} = useUserCharges('01HC3ETBH0ZD5R3WDDYJY0BTQC')
+export function Page() {
+  const { userId } = useAuth();
+  const { data } = useUserCharges(userId);
 
-  console.log({data})
+  console.log({ data });
 
   return (
     <main>
@@ -50,11 +45,14 @@ export function MusicPage() {
         />
       </div>
       <div className="hidden md:block">
-        {/* <Menu /> */}
+        <Menu />
         <div className="border-t">
           <div className="bg-background ">
             <div className="grid lg:grid-cols-5">
-              <Sidebar playlists={playlists} className="hidden lg:block min-h-[calc(100vh)] max-h-[calc(100vh_-_41px)]" />
+              <Sidebar
+                playlists={playlists}
+                className="hidden lg:block min-h-[calc(100vh)] max-h-[calc(100vh_-_41px)]"
+              />
               {/* <Sidebar playlists={playlists} className="hidden lg:block min-h-[calc(100vh_-_41px)] max-h-[calc(100vh_-_41px)]" /> */}
               <div className="col-span-3 lg:col-span-4 lg:border-l">
                 <div className="h-full px-4 py-6 lg:px-8">
@@ -90,24 +88,27 @@ export function MusicPage() {
                       </div>
                       <Separator className="my-4" />
                       <div className="relative">
-                          <div className="flex flex-wrap gap-4 pb-4">
-                            {data?.map((charge) => (
-                              <DashboardCard
-                                key={charge.service.name}
-                                service={{
-                                  name: charge.service.name,
-                                  is_distribuitor: false,
-                                  team: charge.team.members.map((i) => i.phone),
-                                  value: charge.service.value,
-                                  cover: 'https://images.unsplash.com/photo-1696351145352-043b9cc77a1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1895&q=80'
-                                }}
-                                className="w-[300px]"
-                                aspectRatio="square"
-                                width={80}
-                                height={80}
-                              />
-                            ))}
-                          </div>
+                        <div className="flex flex-wrap gap-4 pb-4">
+                          {data?.map((charge) => (
+                            <DashboardCard
+                              key={charge.service.name}
+                              service={{
+                                name: charge.service.name,
+                                is_distribuitor: false,
+                                team:
+                                  charge?.team?.members?.map((i) => i.phone) ??
+                                  [],
+                                value: charge.service.value,
+                                cover:
+                                  "https://images.unsplash.com/photo-1696351145352-043b9cc77a1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1895&q=80",
+                              }}
+                              className="w-[300px]"
+                              aspectRatio="square"
+                              width={80}
+                              height={80}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </TabsContent>
                     <TabsContent
@@ -135,5 +136,5 @@ export function MusicPage() {
         </div>
       </div>
     </main>
-  )
+  );
 }

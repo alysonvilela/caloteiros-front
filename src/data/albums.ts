@@ -6,7 +6,7 @@ export interface Service {
   is_distribuitor: boolean
 }
 
-export const madeForYouAlbums: Service[] = [
+export const testingServices: Service[] = [
   {
     name: "Netflix",
     value: 5000,
