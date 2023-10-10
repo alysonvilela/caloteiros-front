@@ -38,7 +38,7 @@ const useWhatsAppSession = (enabled: boolean) => {
       retry: 3,
       retryDelay: 800,
       staleTime: 30,
-      cacheTime: 1000 * 60 * 60 * 12, // 12 hours
+      cacheTime: 40,
       ...(enabled && {
         refetchIntervalInBackground: true,
         refetchInterval: 3000,
