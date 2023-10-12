@@ -42,7 +42,9 @@ const formSchema = z.object({
     .pipe(
       z
         .number()
-        .positive()
+        .positive({
+          message: "Adicione um dia de cobrança.",
+        })
         .finite()
         .min(1, {
           message: "O menor dia possível é o dia 1.",
@@ -56,6 +58,9 @@ const formSchema = z.object({
   phones: z.array(
     z
       .string()
+      .min(1, {
+        message: 'Adicione um número de celular.'
+      })
       .regex(PhoneRegex, {
         message: "Número de celular inválido.",
       })
@@ -139,14 +144,14 @@ export function RegisterChargeForm() {
                 control={form.control}
                 name="serviceName"
                 render={({ field }) => (
-                  <FormItem className="grid grid-cols-5 items-center gap-4">
+                  <FormItem className="grid grid-cols-5 items-center gap-x-4">
                     <FormLabel className="text-right col-span-2">
                       Nome do serviço
                     </FormLabel>
                     <FormControl className="col-span-3">
                       <Input placeholder="Netflix" {...field} />
                     </FormControl>
-                    <FormMessage className="col-span-5" />
+                    <FormMessage className="col-span-5 text-right" />
                   </FormItem>
                 )}
               />
@@ -154,14 +159,14 @@ export function RegisterChargeForm() {
                 control={form.control}
                 name="demandDay"
                 render={({ field }) => (
-                  <FormItem className="grid grid-cols-5 items-center gap-4">
+                  <FormItem className="grid grid-cols-5 items-center gap-x-4">
                     <FormLabel className="text-right col-span-2">
                       Dia de cobrança
                     </FormLabel>
                     <FormControl className="col-span-3">
                       <Input maxLength={2} placeholder="20" {...field} />
                     </FormControl>
-                    <FormMessage className="col-span-5" />
+                    <FormMessage className="col-span-5 text-right" />
                   </FormItem>
                 )}
               />
@@ -169,14 +174,14 @@ export function RegisterChargeForm() {
                 control={form.control}
                 name="price"
                 render={({ field }) => (
-                  <FormItem className="grid grid-cols-5 items-center gap-4">
+                  <FormItem className="grid grid-cols-5 items-center gap-x-4">
                     <FormLabel className="text-right col-span-2">
                       Preço
                     </FormLabel>
                     <FormControl className="col-span-3">
                       <CurrencyInput {...field} />
                     </FormControl>
-                    <FormMessage className="col-span-5" />
+                    <FormMessage className="col-span-5 text-right" />
                   </FormItem>
                 )}
               />
@@ -203,13 +208,16 @@ export function RegisterChargeForm() {
                   control={form.control}
                   name={`phones.${index}` as const}
                   render={({ field }) => (
-                    <FormItem className="grid grid-cols-5 items-center gap-4">
+                    <FormItem className="grid grid-cols-5 items-center gap-x-4">
                       <FormLabel className="text-right col-span-2">
                         Contato
                       </FormLabel>
                       <div className="col-span-3 flex gap-4">
                         <FormControl>
-                          <PhoneInput {...field} />
+                          <PhoneInput
+                            placeholder="+55 (11) 99999-9999"
+                            {...field}
+                          />
                         </FormControl>
                         {index > 0 && (
                           <Button
@@ -223,7 +231,7 @@ export function RegisterChargeForm() {
                         )}
                       </div>
 
-                      <FormMessage className="col-span-5" />
+                      <FormMessage className="col-span-5 text-right" />
                     </FormItem>
                   )}
                 />
