@@ -1,6 +1,20 @@
 import { UserButton } from "@clerk/nextjs";
-import { Menubar, MenubarCheckboxItem, MenubarContent, MenubarItem, MenubarLabel, MenubarMenu, MenubarRadioGroup, MenubarRadioItem, MenubarSeparator, MenubarShortcut, MenubarSub, MenubarSubContent, MenubarSubTrigger, MenubarTrigger } from "./ui/menubar";
-
+import {
+  Menubar,
+  MenubarCheckboxItem,
+  MenubarContent,
+  MenubarItem,
+  MenubarLabel,
+  MenubarMenu,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
+  MenubarTrigger,
+} from "./ui/menubar";
 
 export function Menu() {
   return (
@@ -26,8 +40,8 @@ export function Menu() {
             Quit Music <MenubarShortcut>⌘Q</MenubarShortcut>
           </MenubarItem>
         </MenubarContent> */}
-       </MenubarMenu>
-   {/* <MenubarMenu>
+      </MenubarMenu>
+      {/* <MenubarMenu>
         <MenubarTrigger className="relative">File</MenubarTrigger>
         <MenubarContent>
           <MenubarSub>
@@ -184,5 +198,5 @@ export function Menu() {
         </MenubarContent>
       </MenubarMenu> */}
     </Menubar>
-  )
+  );
 }

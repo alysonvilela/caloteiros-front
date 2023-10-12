@@ -15,16 +15,17 @@ interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function Sidebar({ className, playlists }: SidebarProps) {
-  const [enabled, setEnabled] = useState(true) // Move to zustand
-  const {data: session, isFetched} = useWhatsAppSession(enabled)
-  const {data: qr} = useWhatsAppQr(isFetched && session?.status === 'SCAN_QR_CODE')
+  const [enabled, setEnabled] = useState(true); // Move to zustand
+  const { data: session, isFetched } = useWhatsAppSession(enabled);
+  const { data: qr } = useWhatsAppQr(
+    isFetched && session?.status === "SCAN_QR_CODE",
+  );
 
   useEffect(() => {
-    if(session?.me?.id) {
-      setEnabled(false)
+    if (session?.me?.id) {
+      setEnabled(false);
     }
-  }, [session?.me])
-
+  }, [session?.me]);
 
   return (
     <div className={cn("pb-12", className)}>
@@ -51,12 +52,19 @@ export function Sidebar({ className, playlists }: SidebarProps) {
           </div>
           <div>
             <Separator className="my-4" />
-            {!session?.me?.id ?
-          <img src={qr?.image} alt="" className=""/>
-           : <>
-            <p className="text-xs">Conectado com: {session?.me?.pushName}</p>
-            <p className="text-xs">Telefone: {session?.me?.id.slice(0, session?.me.id.length - 5)}</p>
-           </>}
+            {!session?.me?.id ? (
+              <img src={qr?.image} alt="" className="" />
+            ) : (
+              <>
+                <p className="text-xs">
+                  Conectado com: {session?.me?.pushName}
+                </p>
+                <p className="text-xs">
+                  Telefone:{" "}
+                  {session?.me?.id.slice(0, session?.me.id.length - 5)}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>

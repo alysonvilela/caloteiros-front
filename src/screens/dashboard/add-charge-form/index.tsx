@@ -30,7 +30,7 @@ import {
 } from "@/components/ui/form";
 import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { Separator } from "@radix-ui/react-context-menu";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   serviceName: z.string().min(3, {
@@ -52,19 +52,19 @@ const formSchema = z.object({
         .max(28, {
           message: "O dia deve ser até o dia 28.",
         })
-        .transform((arg) => String(arg))
+        .transform((arg) => String(arg)),
     ),
   price: z.string(),
   phones: z.array(
     z
       .string()
       .min(1, {
-        message: 'Adicione um número de celular.'
+        message: "Adicione um número de celular.",
       })
       .regex(PhoneRegex, {
         message: "Número de celular inválido.",
       })
-      .min(1)
+      .min(1),
   ),
 });
 
@@ -98,7 +98,7 @@ export function RegisterChargeForm() {
       values.price
         .slice(3, values.price.length)
         .replaceAll(",", "")
-        .replaceAll(".", "")
+        .replaceAll(".", ""),
     );
     const cleanedPhones = values.phones
       .filter((i) => !!i)
@@ -117,7 +117,7 @@ export function RegisterChargeForm() {
           queryClient.refetchQueries({ queryKey: ["user-charges"] });
           onOpenChange(false);
         },
-      }
+      },
     );
   }
 
@@ -185,7 +185,7 @@ export function RegisterChargeForm() {
                   </FormItem>
                 )}
               />
-              <Separator />
+              <Separator className="my-4" />
               <DialogTitle className="flex gap-4">
                 Membros
                 <Button

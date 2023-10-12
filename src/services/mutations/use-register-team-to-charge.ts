@@ -24,7 +24,7 @@ const fetchRegisterCharge = async (userId: string, body: RequestChargeBody) => {
       headers: {
         "x-owner-id": userId,
       },
-    }
+    },
   );
   return res.data;
 };
@@ -36,18 +36,18 @@ export type SuccessTeamRequest = {
 };
 
 export interface RegisterTeamRequest {
-  userId: string
+  userId: string;
   body: {
     phones: string[];
   };
   chargeId: string;
 }
 
-const fetchRegisterTeamToCharge = async (
-  {userId,
+const fetchRegisterTeamToCharge = async ({
+  userId,
   chargeId,
-  body}: RegisterTeamRequest
-) => {
+  body,
+}: RegisterTeamRequest) => {
   const res = await axios.post<SuccessTeamRequest>(
     `${process.env.NEXT_PUBLIC_SERVICE_URL}/dev/charge/${chargeId}/add-team`,
     {
@@ -57,7 +57,7 @@ const fetchRegisterTeamToCharge = async (
       headers: {
         "x-owner-id": userId,
       },
-    }
+    },
   );
   return res.data;
 };

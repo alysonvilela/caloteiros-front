@@ -14,8 +14,8 @@ const fetchUserCharges = async (userId: string) => {
     {
       headers: {
         "x-owner-id": userId,
-      }
-    }
+      },
+    },
   );
   return res.data;
 };
@@ -27,8 +27,8 @@ const useUserCharges = (userId?: string | null) => {
     {
       retry: 3,
       retryDelay: 30000,
-      enabled: !!userId
-    }
+      enabled: !!userId,
+    },
   );
 };
 

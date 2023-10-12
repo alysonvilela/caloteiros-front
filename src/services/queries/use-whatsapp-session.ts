@@ -25,7 +25,7 @@ interface Params {
 
 const fetchWhatsAppSession = async () => {
   const res = await axios.get<SuccessRequest>(
-    `${process.env.NEXT_PUBLIC_SERVICE_URL}/dev/admin/session`
+    `${process.env.NEXT_PUBLIC_SERVICE_URL}/dev/admin/session`,
   );
   return res.data;
 };
@@ -41,7 +41,7 @@ const useWhatsAppSession = (enabled: boolean) => {
         refetchIntervalInBackground: true,
         refetchInterval: 3000,
       }),
-    }
+    },
   );
 };
 
