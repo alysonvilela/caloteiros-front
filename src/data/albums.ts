@@ -4,6 +4,7 @@ export interface Service {
   cover: string
   team: string[]
   is_distribuitor: boolean
+  demand_day: string
 }
 
 export const testingServices: Service[] = [

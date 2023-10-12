@@ -86,6 +86,7 @@ export function Page() {
                                   charge?.team?.members?.map((i) => i.phone) ??
                                   [],
                                 value: charge.service.value,
+                                demand_day: charge.demand_day,
                                 cover:
                                   "https://images.unsplash.com/photo-1696351145352-043b9cc77a1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1895&q=80",
                               }}

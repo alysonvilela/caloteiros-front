@@ -62,7 +62,7 @@ export function DashboardCard({
             <div className="space-y-3 w-full">
                 <div className="flex justify-between">
                   <p className="text-sm text-neutral-500">Dia de envio</p>
-                  <p className="text-sm text-muted-foreground">Todo dia 20</p>
+                  <p className="text-sm text-muted-foreground">Todo dia {service.demand_day}</p>
                 </div>
                 <Separator />
                 <div className="flex justify-between">
